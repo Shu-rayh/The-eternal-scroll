@@ -2,10 +2,9 @@ import random
 
 def roll_die(sides):
     return random.randint(1, sides)
-
-def roll_dice(num_dice, sides, modifier=0):
+def roll_dice(number_dice, sides, modifier=0):
     total = 0
-    for _ in range(num_dice):
+    for _ in range(number_dice):
         total += roll_die(sides)
     return total + modifier
 
@@ -16,7 +15,6 @@ def roll_d20 (modifier=0, advantage=False, disadvantage=False):
         chosen = max(first, second) if advantage else min(first, second)
     else:
         chosen = first
-        
     return {
         "raw": chosen,
         "total": chosen + modifier,

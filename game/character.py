@@ -26,13 +26,13 @@ class Character:
         self.base_ac = base_ac
         self.inventory = Inventory()
         self.equipped_weapon = None
-        self.equipped_armor = None
+        self.equipped_armour = None
     def modifier(self, ability_name):
         return ability_modifier(self.abbilities[ability_name])
     
     @property
     def armour_class(self):
-        bonus = self.equipped_armor.ac_bonus if self.equipped_armor else 0
+        bonus = self.equipped_armour.ac_bonus if self.equipped_armour else 0
         return self.base_ac + self.modifier("DEX") + bonus
     @property
     def is_alive(self):
@@ -59,8 +59,8 @@ class Character:
         
     def equip_weapon(self, item):
         self.equipped_weapon = item 
-    def equip_armor(self, item):
-        self.equipped_armor = item
+    def equip_armour(self, item):
+        self.equipped_armour = item
     def gain_xp(self, amount):
         self.xp += amount
         messages = [f"{self.name} gains {amount} XP"]
@@ -81,6 +81,19 @@ class Character:
         return (f"{self.name} | Lv{self.level} | "
                 f"Hp {self.hp}/{self.max_hp} | AC {self.armour_class}")
 
+    def to_dict(self):
+        return{
+            "name": self.name,
+            "level": self.level,
+            "xp": self.xp,
+            "hp": self.hp,
+            "max_hp": self.max_hp,
+            "armour_class": self.armour_class,
+            "abilities": self.abbilities,
+            "equipped_weapon": self.equipped_weapon.name if self.equipped_weapon else  None,
+            "equipped_armour": self.equipped_armour.name if self.equipped_armour else None,
+            "is_alive": self.is_alive
+        }
 def make_player(name):
     abilities = {"STR": 14, "DEX":12, "CON": 13, "INT": 10, "WIS": 11, "CHA": 8,}
     player = Character(

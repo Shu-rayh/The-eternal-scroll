@@ -11,6 +11,15 @@ class Item:
         self.ac_bonus = ac_bonus        
     def __str__(self):
         return f"{self.name} - {self.description}"
+    def to_dict(self):
+        return{
+            "name": self.name,
+            "description": self.description,
+            "item_type": self.item_type,
+            "value": self.value,
+            "heal_amount": self.heal_amount,
+            "ac_bonus": self.ac_bonus,
+        }
 
 class Inventory:
     def __init__(self):
@@ -25,7 +34,6 @@ class Inventory:
             return True
         return False
     def find_by_name(self, name):
-        """Case-insensitive search so 'sword' matches 'Sword'."""
         name = name.lower()
         for item in self.items:
             if item.name.lower() == name:
@@ -39,12 +47,17 @@ class Inventory:
         for item in self.items:
             lines.append(f"  - {item}")
         return "\n".join(lines)
+    def to_dict(self):
+        return {
+            "gold": self.gold,
+            "items": [item.to_dict() for item in self.items],
+        }
 
 ITEM_CATALOGUE = {
-    """ "item_name": Item(
-        "item name", "Item description",
-        item_type="type", value=(price), damage_dice=1, damage_sides=(damage dice sides),
-    ),   """  
+    #"item_name": Item(
+    #    "item name", "Item description",
+    #    item_type="type", value=(price), damage_dice=1, damage_sides=(damage dice sides),
+    #),   
     "rusty_dagger": Item(
         "Rusty Dagger", "A pitted blade, but still sharp enough.",
         item_type="weapon", value=2, damage_dice=1, damage_sides=4,
@@ -57,9 +70,9 @@ ITEM_CATALOGUE = {
         "Healing Potion", "A red liquid that mends wounds.",
         item_type="potion", value=15, heal_amount=10,
     ),
-    "leather_armor": Item(
-        "Leather Armor", "Light armor made of boiled leather.",
-        item_type="armor", value=8, ac_bonus=1,
+    "leather_armour": Item(
+        "Leather armour", "Light armour made of boiled leather.",
+        item_type="armour", value=8, ac_bonus=1,
     ),
     "rusty_key": Item(
         "Rusty Key", "It might open something nearby.",

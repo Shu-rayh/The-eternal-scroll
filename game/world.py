@@ -62,9 +62,9 @@ def build_world():
     world["ruined_tower"] = Room(
         room_id="ruined_tower",
         name="Ruined Tower",
-        description="A collapsed watchtower. A set of leather armor hangs on a broken rack.",
+        description="A collapsed watchtower. A set of leather armour hangs on a broken rack.",
         exits={"south": "old_bridge", "north": "dragon_lair"},
-        item_key="leather_armor",
+        item_key="leather_armour",
     )
 
     world["dragon_lair"] = Room(

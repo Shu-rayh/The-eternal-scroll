@@ -9,7 +9,7 @@ Commands:
   look             - redisplay the current room
   take item        - pick up an item in the room, if any
   inventory        - show your bag and gold
-  equip <name>     - equip a weapon or armor from your bag (e.g. 'equip short sword')
+  equip <name>     - equip a weapon or armour from your bag (e.g. 'equip short sword')
   use <name>       - use a potion from your bag (e.g. 'use healing potion')
   status           - show your character sheet
   help             - show this list again
@@ -31,7 +31,7 @@ def handle_room_entry(player, room):
     if room.monsters and not room.monster_defeated:
         monster = room.monsters()
         result = run_combat(player, monster, get_player_combat_action)
-        if result == "loose":
+        if result == "lose":
             return "game_over"
         if result == "win":
             room.monster_defeated = True
@@ -57,7 +57,7 @@ def handle_command(player, world, current_rooms, command):
         if current_rooms.item_key and not current_rooms.item_taken:
             item = ITEM_CATALOGUE[current_rooms.item_key]
             player.inventory.add_item(item)
-            current_rooms.item_take = True
+            current_rooms.item_taken = True
             print(f"You picked up: {item}")
         else:
             print("There appears to be nothing here to take.")   
@@ -69,7 +69,7 @@ def handle_command(player, world, current_rooms, command):
         elif item.item_type == "weapon":
             player.equip_weapon(item)
             print(f"You equip the {item.name}.")
-        elif item.item_type == "armor":
+        elif item.item_type == "armour":
             player.equip_armour(item)
             print(f"You equip the {item.name}.")
         else:

@@ -43,6 +43,28 @@ def run_combat(player, monster, get_player_action):
     print(f"\nThe {monster.name} is defeated!")
     return "win"
 
+def resolve_round(player, monster, action):
+    log = []
+    if action == "attack":
+        log.append(attempt_attack(player, monster, ability_name="STR"))
+    elif action == "flee":
+        flee_roll = roll_d20(player.modifier("DEX"))
+        if flee_roll["total"]>= 12:
+            log.append(f"{player.name} escapes successfully!")
+            return {"log": log, "outcome": "flee"}
+        log.append(f"{player.name} fails to escape!")
+    else:
+        log.append("Invalid action.")
+        return {"log": log, "outcome": "continue"}
+    if not monster.is_alive:
+        log.append(f"The {monster.name} is defeated!")
+        return {"log": log, "outcome": "win"}
+    log.append(attempt_attack(monster, player, ability_name="STR"))
+    if not player.is_alive:
+        log.append(f"{player.name} has fallen...")
+        return {"log": log, "outcome": "loose"}
+    return {"log": log, "outcome": "continue"}
+
 """def monster_(monster name)():
     from game.character import Character
     (name) = Character(

@@ -41,9 +41,9 @@ Try to:
 4. Reach the Dragon's Lair from BOTH paths (cave route and bridge route).
 
 ## Some images
-![screenshot](Screenshot (3).webp)
-![screenshot](Screenshot (4).webp)
-![screenshot](Screenshot (5).webp)
+![screenshot](docs/Screenshot(3).webp)
+![screenshot](docs/Screenshot(4).webp)
+![screenshot](docs/Screenshot(5).webp)
 
 ## Run it yourself
 ```bash

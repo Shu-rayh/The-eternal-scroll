@@ -42,7 +42,6 @@ def run_combat(player, monster, get_player_action):
         return "lose"
     print(f"\nThe {monster.name} is defeated!")
     return "win"
-
 def resolve_round(player, monster, action):
     log = []
     if action == "attack":
@@ -98,8 +97,20 @@ def monster_skeleton():
         hit_die=8,
         base_ac=13,
     )
-    skeleton.equip_weapon(Item("Bone Shortsword", "", "weapon", damage_dice=1, damage_sides=6))
+    skeleton.equip_weapon(Item("Bone Shortsword", "", "weapon", damage_dice=1, damage_sides=4))
     return skeleton
+
+def monster_guard():
+    from game.character import Character
+    from game.items import Item
+    guard = Character(
+        name="Guard",
+        abilities={"STR": 14, "DEX": 14, "CON": 12, "INT": 10, "WIS": 10, "CHA": 10},
+        hit_die=8,
+        base_ac=27,
+    )
+    guard.equip_weapon(Item("Short sword", "", "weapon", damage_dice=2, damage_sides=6))
+    return guard
 
 
     

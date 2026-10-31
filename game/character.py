@@ -29,7 +29,6 @@ class Character:
         self.equipped_armour = None
     def modifier(self, ability_name):
         return ability_modifier(self.abbilities[ability_name])
-    
     @property
     def armour_class(self):
         bonus = self.equipped_armour.ac_bonus if self.equipped_armour else 0

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>The Eternal Scroll</title>
+    </head>
+    <body>
+        <div id="start-screen">
+            <h1>The Eternal Scroll</h1>
+            <p>Enter your character name to begin</p>
+            <input id="name-input" type="text" placeholder="Adventurer">
+            <br>
+            <button id="start-button">Start Game</button>
+        </div>
+
+        <div id="app">
+            <div id="error-banner"></div>
+            <div id="tab-bar">
+                <button class="tab-button active" data-tab="story">Story</button>
+                <button class="tab-button" data-tab="character">Character</button>
+                <button class="tab-button" data-tab="inventory">Inventory</button>
+                <button class="tab-button" data-tab="map">Map</button>
+            </div>
+            
+            <div id="story" class="tab-panel-active">
+                <div class="card">
+                    <h2 id="room-name"></h2>
+                    <p id="room-description"></p>
+                    <div id="exit-buttons"></div>
+                    <div id="item-here-area"></div>
+                    <div id="ending-area"></div>
+            </div>
+
+            <div class="card" id="combat-card" style="display:none;">
+                <h2 id="monster-name"></h2>
+                <div class="bar-track"><div class="bar-fill" id="monster-hp-bar">  </div> </div>
+            </div>
+        </div>
+    </body>
+</html>

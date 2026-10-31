@@ -125,6 +125,8 @@ def main():
             status = handle_room_entry(player, current_room)
             if status == "game_over":
                 break
+            
+            
 if __name__ == "__main__":
     main()
 

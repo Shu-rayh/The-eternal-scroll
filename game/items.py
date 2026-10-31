@@ -39,7 +39,6 @@ class Inventory:
             if item.name.lower() == name:
                 return item
         return None
-
     def list_items(self):
         if not self.items:
             return "Your bag is empty."
@@ -64,7 +63,7 @@ ITEM_CATALOGUE = {
     ),
     "short_sword": Item(
         "Short Sword", "A reliable blade favored by adventurers.",
-        item_type="weapon", value=10, damage_dice=1, damage_sides=6,
+        item_type="weapon", value=10, damage_dice=3, damage_sides=6,
     ),
     "healing_potion": Item(
         "Healing Potion", "A red liquid that mends wounds.",

@@ -21,6 +21,5 @@ def roll_d20 (modifier=0, advantage=False, disadvantage=False):
         "critical_hit": chosen == 20,
         "critical_fail": chosen == 1,
     }
-    
 def ability_modifier(score):
     return (score - 10) // 2

@@ -33,7 +33,6 @@ def build_state(game):
             "item_here": room.item_key if (room.item_key and not room.item_taken) else None,
             "is_ending": room.is_ending,
             "ending_text": room.ending_text if room.is_ending else None,
-            
         },
         "character": player.to_dict(),
         "inventory": player.inventory.to_dict(),
@@ -73,9 +72,15 @@ def state():
 @app.route("/api/move", methods=["POST"])
 def move():
     game = get_game()
+    if game is None:
+        return jsonify({"error": "No active game, please create one"}), 400
+    if game["current_monster"] is not None:
+        return jsonify({"error": "You cant leave in the middle of a fight"}), 400
     data = request.get_json(silent=True) or {}
     direction = data.get("direction", " ").strip().lower()
     room = game["world"][game["current_room_id"]]
+    if direction not in room.exits:
+        return jsonify({"error": f"You cant go '{direction}' from here"}), 400
     game["current_room_id"] = room.exits[direction]
     enter_room(game)
     return jsonify(build_state(game))
@@ -83,7 +88,11 @@ def move():
 @app.route("/api/take-item", methods=["POST"])
 def take_item():
     game = get_game()    
+    if game is None:
+        return jsonify({"error": "No active game, please create one"}), 400
     room = game["world"][game["current_room_id"]]
+    if not room.item_key or room.item_taken:
+        return jsonify({"error": "theres nothing here to take"}), 400
     item = ITEM_CATALOGUE[room.item_key]
     game["player"].inventory.add_item(item)
     room.item_taken = True
@@ -92,10 +101,14 @@ def take_item():
 @app.route("/api/equip", methods=["POST"])
 def equip():
     game = get_game() 
+    if game is None:
+        return jsonify({"error": "No active game, please create one"}), 400
     data = request.get_json(silent=True) or {}
     item_name = data.get("item_name", " ")
     player = game["player"]
     item = player.inventory.find_by_name(item_name)
+    if game is None:
+        return jsonify({"error": f"you dont have a '{item_name}'."}), 400
     if item.item_type == "weapon":
         player.equip_weapon(item)
     elif item.item_type == "armour":
@@ -105,18 +118,27 @@ def equip():
 @app.route("/api/use-item", methods=["POST"])
 def use_item():
     game = get_game()
+    if game is None:
+        return jsonify({"error": "No active game, please create one"}), 400
     data = request.get_json(silent=True) or {}
     item_name = data.get("item_name", " ")
     player = game["player"]
     item = player.inventory.find_by_name(item_name)
+    if item is None:
+        return jsonify({"error": f"You dont have a '{item_name}'."}), 400
+    if item.item_type != "potion":
+        return jsonify({"error": f"you cant use the {item.name} that way"}), 400
     player.heal(item.heal_amount)
     player.inventory.remove_item(item)
     return jsonify(build_state(game))
-
 @app.route("/api/combat-action", methods=["POST"])
 def combat_action():
     game = get_game()
+    if game is None:
+        return jsonify({"error": "No active game, please create one"}), 400
     monster = game["current_monster"]
+    if monster is None:
+        return jsonify({"error": "you arent in combat right now"}), 400
     data = request.get_json(silent=True) or {}
     action = data.get("action", " ")
     result = resolve_round(game["player"], monster, action)
@@ -135,6 +157,8 @@ def combat_action():
 @app.route("/api/map", methods=["GET"])
 def map_data():
     game = get_game()
+    if game is None:
+        return jsonify({"error": "No active game, please create one"}), 400
     rooms = [ ]
     for room_id, room in game["world"].items():
         rooms.append({"room_id": room_id,

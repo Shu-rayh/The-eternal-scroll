@@ -1,13 +1,13 @@
-# The Eternal Scroll:
+# The Eternal Scroll
 A 5e-Style Text Adventure game made in python.
+**Download it here → https://github.com/Shu-rayh/The-eternal-scroll/releases/tag/pre**
 
-## How to run it
+## Quick start
 
-```bash
-python3 main.py
-```
+1. Open the link above and download the main.exe file.
+2. Open the file after download and start playing
+3. You'll be asked for a character name, then dropped into the Village of Washbone. Type `help` at any time to see the full command list.
 
-You'll be asked for a character name, then dropped into the Village of Washbone. Type `help` at any time to see the full command list.
 ### The current command list:
 - go <direction>   - move through an exit (e.g. 'go north')look             - redisplay the current room
 - take item        - pick up an item in the room, if any
@@ -18,9 +18,7 @@ You'll be asked for a character name, then dropped into the Village of Washbone.
 - help             - show this list again
 - quit             - exit the game
 
-
-## What's implemented
-
+## Current Features (more coming soon)
 - **Ability scores & modifiers**: STR/DEX/CON/INT/WIS/CHA with the standard
   5e `(score - 10) // 2` formula.
 - **d20 rolls**: attack rolls, saving throw rolls, with critical hit/fail
@@ -32,7 +30,6 @@ You'll be asked for a character name, then dropped into the Village of Washbone.
 - **Inventory**: pick up, equip weapons/armour, use potions.
 - **Story branching**: a small but real branching map, not a straight line.
 
-
 ## Testing it yourself
 
 Try to:
@@ -42,5 +39,25 @@ Try to:
 3. Pick up all three items (dagger, potion, armour), equip the dagger and
    armour, and drink the potion.
 4. Reach the Dragon's Lair from BOTH paths (cave route and bridge route).
+
+## Some images
+![screenshot](Screenshot (3).webp)
+![screenshot](Screenshot (4).webp)
+![screenshot](Screenshot (5).webp)
+
+## Run it yourself
+```bash
+git clone https://github.com/Shu-rayh/The-eternal-scroll
+cd The-eternal-scroll
+```
+## More to come
+Eventually I want to have the python game running as a backend to a website where you can play the game, view images of the scenery, view your inventory and view your character sheet.
+
+## Why did I make this?
+D&D and coding are 2 things im passionate about and I wanted tto try and build my own Text based adventure game so I thought why not add D&D mechanics.
+
+## How Ai was used
+I used claudes assistance for debugging 
+
 
 
